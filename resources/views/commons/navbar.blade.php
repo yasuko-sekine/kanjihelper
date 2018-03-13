@@ -14,7 +14,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         <li>
-                            <a href="#">
+                            <a href="{{ route('rests.create') }}">
                                 <span class="glyphicon glyphicon-glass" aria-hidden="true"></span>
                                 お店を探す
                             </a>
