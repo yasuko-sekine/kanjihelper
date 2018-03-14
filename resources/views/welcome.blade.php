@@ -14,7 +14,7 @@
     <div class="container-fluid">
         <div class="row text-center">
             <div class="col-sm-4"><a href="{{ route('rests.create') }}" class="btn btn-primary btn-lg">お店を探す</a></div>
-            <div class="col-sm-4"><a href="" class="btn btn-primary btn-lg">カラオケ店検索</a></div>
+            <div class="col-sm-4"><a href="{{ route('kshops.index') }}" class="btn btn-primary btn-lg">カラオケ店検索</a></div>
             <div class="col-sm-4"><a href="" class="btn btn-primary btn-lg">割り勘電卓</a></div>
         </div>
     </div>

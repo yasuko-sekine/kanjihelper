@@ -59,8 +59,7 @@ footer {
     height: 100%;
     max-width: 100%;
 }
-p.rest-title {
-    /* 文の行数を2行に保ち、最後に ... を追加するスタイル */
+p.rest-pr {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 10;
@@ -74,3 +73,4 @@ a:hover {
 a:active {
   color: #ff00ff;
 }
+
