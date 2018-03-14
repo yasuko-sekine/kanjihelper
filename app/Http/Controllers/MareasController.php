@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PrefsController extends Controller
+class MareasController extends Controller
 {
     public function show($id)
     {
-        $pref = \App\Pref::find($id);
-        $mareas = $pref->mareas;
+        $marea = \App\Marea::find($id);
         
-        $pref_c = $pref->code;
+        $marea_c = $marea->code;
         // $category_l = 'RSFST21000';
         $freeword = '酒';
         $freeword_condition = '2';
@@ -23,7 +22,7 @@ class PrefsController extends Controller
         $acckey= env('GNAB_ACCESSKEY');
         $format= "json";
         $uri3   = "https://api.gnavi.co.jp/RestSearchAPI/20150630/";
-        $url3  = sprintf("%s%s%s%s%s%s%s%s%s%s%s%s%s", $uri3, "?format=", $format,"&keyid=", $acckey, "&pref=", $pref_c, "&freeword=", $freeword, "&freeword_condition=", $freeword_condition, "&hit_per_page=", $hit_per_page);
+        $url3  = sprintf("%s%s%s%s%s%s%s%s%s%s%s%s%s", $uri3, "?format=", $format,"&keyid=", $acckey, "&areacode_m=", $marea_c, "&freeword=", $freeword, "&freeword_condition=", $freeword_condition, "&hit_per_page=", $hit_per_page);
         $json3 = file_get_contents($url3);
         $obj3  = json_decode($json3);
         
@@ -37,11 +36,10 @@ class PrefsController extends Controller
             $rests[] = $rest;
         }
         
-        $prefs = \App\Pref::all();
+        $mareas = $marea->pref->mareas;
         
-        return view('prefs.show', [
+        return view('mareas.show', [
             'rests' => $rests,
-            'prefs' => $prefs,
             'mareas' => $mareas,
         ]);
     }

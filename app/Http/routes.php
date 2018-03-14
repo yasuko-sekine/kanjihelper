@@ -22,6 +22,7 @@ Route::get('logout', 'Auth\AuthController@getLogout')->name('logout.get');
 
 Route::resource('rests', 'RestsController', ['only' => ['create']]);
 Route::resource('prefs', 'PrefsController', ['only' => ['show']]);
+Route::resource('mareas', 'MareasController', ['only' => ['show']]);
 
 Route::group(['middleware' => 'auth'], function () {
     

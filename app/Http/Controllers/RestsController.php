@@ -29,24 +29,30 @@ class RestsController extends Controller
         //     $pref->save();
         // }
         
-        $uri2   = "https://api.gnavi.co.jp/master/GAreaMiddleSearchAPI/20150630/";
-        $url2 = sprintf("%s%s%s%s%s", $uri2, "?format=", $format,"&keyid=", $acckey);
-        $json2 = file_get_contents($url2);
-        $obj2  = json_decode($json2); 
+        // $uri2   = "https://api.gnavi.co.jp/master/GAreaMiddleSearchAPI/20150630/";
+        // $url2 = sprintf("%s%s%s%s%s", $uri2, "?format=", $format,"&keyid=", $acckey);
+        // $json2 = file_get_contents($url2);
+        // $obj2  = json_decode($json2); 
         
-        foreach ($obj2->garea_middle as $g_marea) {
-            $marea = new \App\Marea();
-            $marea->code = $g_marea->areacode_m;
-            $marea->name = $g_marea->areaname_m;
-            $marea->pref_code = $g_marea->pref->pref_code;
-            $marea->pref_name = $g_marea->pref->pref_name;
-            $marea->save();
-        }        
+        // foreach ($obj2->garea_middle as $g_marea) {
+        //     $marea = new \App\Marea();
+        //     $marea->code = $g_marea->areacode_m;
+        //     $marea->name = $g_marea->areaname_m;
+        //     $marea->pref_code = $g_marea->pref->pref_code;
+        //     $marea->pref_name = $g_marea->pref->pref_name;
+        //     $pref_n = \App\Pref::where('name', $g_marea->pref->pref_name)->get();
+        //     $marea->pref_id = $pref_n[0]['id'];       
+        //     $marea->save();
+        // }        
         
         $rests = [];
             $pref_c = 'PREF13';
+            // $category_l = 'RSFST21000';
+            $freeword = '酒';
+            $freeword_condition = '2';
+            $hit_per_page = '100';
             $uri3   = "https://api.gnavi.co.jp/RestSearchAPI/20150630/";
-            $url3  = sprintf("%s%s%s%s%s%s%s%s", $uri3, "?format=", $format,"&keyid=", $acckey, "&pref=", $pref_c, "&freeword=", "居酒屋");
+            $url3  = sprintf("%s%s%s%s%s%s%s%s%s%s%s%s%s", $uri3, "?format=", $format,"&keyid=", $acckey, "&pref=", $pref_c, "&freeword=", $freeword, "&freeword_condition=", $freeword_condition, "&hit_per_page=", $hit_per_page);
             $json3 = file_get_contents($url3);
             $obj3  = json_decode($json3);
             
@@ -57,14 +63,17 @@ class RestsController extends Controller
                 $rest->url = $g_rest->url;
                 $rest->image_url = $g_rest->image_url->shop_image1;
                 $rest->pr = $g_rest->pr->pr_short;
+                // $rest->budget = $g_rest->budget;
                 $rests[] = $rest;
             }
             
         $prefs = \App\Pref::all();
+        $mareas = \App\Marea::all();
 
         return view('rests.create', [
             'rests' => $rests,
             'prefs' => $prefs,
+            'mareas' => $mareas,
         ]);
     }
 
